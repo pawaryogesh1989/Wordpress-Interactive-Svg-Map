@@ -2,8 +2,8 @@
 Contributors: pawaryogesh1989, clarionwpdeveloper
 Tags: wordpress map, interactive svg map, svg map, wordpress svg map, svg map wordpress, vector map, wordpress vector map, world map, svg world map, vector world map, Asia map, europe map, germany map, africa map, australia map, argentina map, algeria map, brazil map, canada map, france map, greece map, iran map, iraq map, north america map, south america map, russia map, tunisia map, turkey map.
 Requires at least: 3.0.1
-Tested up to: 4.5.2
-Stable tag: 4.5
+Tested up to: 4.9.8
+Stable tag: 4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
