@@ -1,22 +1,10 @@
 <div class="wrap">
     <h3><?php _e('Interactive Map Settings'); ?></h3>
-
+    <hr />
     <form method="post" action="options.php">
         <?php settings_fields('interactive-map-settings-group'); ?>
         <?php do_settings_sections('interactive-map-settings-group'); ?>
-        <table class="form-table">
-            <tr valign="top">
-                <th scope="row"><?php _e("Map Width :"); ?></th>
-                <td>
-                    <input type="text" name="map_width"  value="<?php echo esc_attr(get_option('map_width')); ?>" /> px
-                </td>                
-            </tr>
-            <tr valign="top">
-                <th scope="row"><?php _e("Map Height :"); ?></th>
-                <td>
-                    <input type="text" name="map_height"  value="<?php echo esc_attr(get_option('map_height')); ?>" /> px
-                </td>                
-            </tr>
+        <table class="form-table">            
             <tr valign="top">
                 <th scope="row"><?php _e("Map Type :"); ?></th>
                 <td>
@@ -44,28 +32,28 @@
                     </select>
                 </td>                
             </tr>
-             <tr valign="top">
+            <tr valign="top">
                 <th scope="row"><?php _e("Map Color :"); ?></th>
                 <td>
-                    <input type="text" name="map_color" class="mp_color" value="<?php echo esc_attr(get_option('map_color')); ?>" />
+                    <input type="text" name="map_color" class="mp_color" value="<?php echo!empty(esc_attr(get_option('map_color'))) ? esc_attr(get_option('map_color')) : "#b9d7b8"; ?>" />
                 </td>                
             </tr>
             <tr valign="top">
                 <th scope="row"><?php _e("Map Background Color :"); ?></th>
                 <td>
-                    <input type="text" name="map_background_color" class="mp_background" value="<?php echo esc_attr(get_option('map_background_color')); ?>" />
+                    <input type="text" name="map_background_color" class="mp_background" value="<?php echo!empty(esc_attr(get_option('map_background_color'))) ? esc_attr(get_option('map_background_color')) : "#a3cdff"; ?>" />
                 </td>                
             </tr>
             <tr valign="top">
                 <th scope="row"><?php _e("Map Border Color :"); ?></th>
                 <td>
-                    <input type="text" name="map_border_color" class="mp_border" value="<?php echo esc_attr(get_option('map_border_color')); ?>" />
+                    <input type="text" name="map_border_color" class="mp_border" value="<?php echo!empty(esc_attr(get_option('map_border_color'))) ? esc_attr(get_option('map_border_color')) : "#000000"; ?>" />
                 </td>                
             </tr>
             <tr valign="top">
                 <th scope="row"><?php _e("Map Selected Region Color :"); ?></th>
                 <td>
-                    <input type="text" name="map_selected_color" class="mp_selected_color" value="<?php echo esc_attr(get_option('map_selected_color')); ?>" />
+                    <input type="text" name="map_selected_color" class="mp_selected_color" value="<?php echo!empty(esc_attr(get_option('map_selected_color'))) ? esc_attr(get_option('map_selected_color')) : "#8e8770"; ?>" />
                 </td>                
             </tr>
             <tr valign="top">
@@ -116,7 +104,7 @@
             <tr valign="top">
                 <th scope="row"><?php _e("Map Region Hover Color :"); ?></th>
                 <td>
-                    <input type="text" name="map_region_hover_color" class="mp_region_hover" value="<?php echo esc_attr(get_option('map_region_hover_color')); ?>" />
+                    <input type="text" name="map_region_hover_color" class="mp_region_hover" value="<?php echo!empty(esc_attr(get_option('map_region_hover_color'))) ? esc_attr(get_option('map_region_hover_color')) : "#779baa"; ?>" />
                 </td>                
             </tr>
             <tr valign="top">

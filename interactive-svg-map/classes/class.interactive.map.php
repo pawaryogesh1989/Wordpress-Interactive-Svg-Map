@@ -2,35 +2,37 @@
 
 //Main Plugin Class
 
-class Interactive_Map {
+class Interactive_Map
+{
 
     static $instance;
 
     //Constructor of the Class
-    public function __construct() {
+    public function __construct()
+    {
 
         self::$instance = $this;
 
-        add_action('admin_menu', array($this, 'wp_interactive_map_menu'));
-        add_action('admin_init', array($this, 'wp_interactive_map_settings'));
-        add_shortcode('interactive-map', array($this, 'interactive_map_func'));
-
-        add_action('admin_enqueue_scripts', array(
-            $this,
-            'Interactive_Map_Admin_Scripts'
-        ));
-
-        add_action('wp_enqueue_scripts', array(
-            $this,
-            'Interactive_Map_Frontend_Scripts'
-        ));
+        add_action('admin_menu', array($this, 'wpInteractiveMapMenu'));
+        add_action('admin_init', array($this, 'wpInteractiveMapSettings'));
+        add_shortcode('interactive-map', array($this, 'interactiveMapShortcode'));
+        add_action('admin_enqueue_scripts', array($this, 'interactiveMapAdminScripts'));
+        add_action('wp_enqueue_scripts', array($this, 'interactiveMapFrontendScripts'));
     }
 
-    public function wp_interactive_map_menu() {
-        add_plugins_page('Interactive Map Settings', 'Interactive Map Settings', 'manage_options', 'interactive-map-settings', array($this, 'load_map_settings_page'), '', 85);
+    /**
+     * Function to add menu in backend
+     */
+    public function wpInteractiveMapMenu()
+    {
+        add_plugins_page('Interactive Map Settings', 'Interactive Map Settings', 'manage_options', 'interactive-map-settings', array($this, 'loadMapSettingsPage'), '', 85);
     }
 
-    public function load_map_settings_page() {
+    /**
+     * Function to Load Map Settings Page
+     */
+    public function loadMapSettingsPage()
+    {
         if (file_exists(plugin_dir_path(__DIR__) . '/views/interactive-map-settings.php')) {
             require plugin_dir_path(__DIR__) . '/views/interactive-map-settings.php';
         } else {
@@ -38,41 +40,50 @@ class Interactive_Map {
         }
     }
 
-    /* Function to include scripts necessary for the plugin.
-     * Scripts are saved in the JS folder of the plugin.
+    /**
+     * Function to include scripts necessary for the plugin.
      */
-
-    public function Interactive_Map_Admin_Scripts() {
+    public function interactiveMapAdminScripts()
+    {
 
         wp_enqueue_style('wp-color-picker');
         wp_enqueue_script('wp-color-picker');
-        wp_enqueue_script('map-color-picker', plugins_url('js/interactive-admin-map.js', __DIR__), array(), '1.0.0', true);
+        wp_enqueue_script('map-color-picker', plugins_url('/assets/js/interactive-admin-map.js', __DIR__), array('jquery'), '2.0.0', true);
     }
 
-    public function Interactive_Map_Frontend_Scripts() {
+    /**
+     * Frontend Scripts
+     */
+    public function interactiveMapFrontendScripts()
+    {
 
-        wp_enqueue_style('interactive-main-style', plugins_url('css/jqvmap.css', __DIR__));
-        wp_enqueue_style('interactive-map-style', plugins_url('css/style.css', __DIR__));
-        wp_enqueue_script('vmap-js-handler', plugins_url('js/jquery.vmap.js', __DIR__), array(), '1.0.0', true);
-        wp_enqueue_script('vmap-worldmap-handler', plugins_url('js/maps/jquery.vmap.' . get_option('map_type') . '.js', __DIR__), array(), '1.0.0', true);
+        wp_enqueue_style('interactive-main-style', plugins_url('/assets/css/jqvmap.css', __DIR__));
+        wp_enqueue_style('interactive-map-style', plugins_url('/assets/css/style.css', __DIR__));
+        wp_enqueue_script('vmap-js-handler', plugins_url('/assets/js/jquery.vmap.js', __DIR__), array(), '1.0.0', true);
+        wp_enqueue_script('vmap-worldmap-handler', plugins_url('/assets/js/maps/jquery.vmap.' . get_option('map_type') . '.js', __DIR__), array(), '2.0.0', true);
+
         wp_localize_script('vmap-worldmap-handler', 'interactivemap', array(
-            'map' => get_option('map_type'),
-            'map_color' => get_option('map_color'),
-            'map_background_color' => get_option('map_background_color'),
-            'map_border_color' => get_option('map_border_color'),
-            'map_zoom' => get_option('map_zoom'),
-            'map_region_hover_color' => get_option('map_region_hover_color'),
-            'map_labels' => get_option('map_labels'),
-            'map_tooltip' => get_option('map_tooltip'),
-            'map_border_width' => get_option('map_border_width'),
-            'map_border_opacity' => get_option('map_border_opacity'),
-            'map_selected_color' => get_option('map_selected_color'),
-            'map_multiselect' => get_option('map_multiselect'),
+            'map' => !empty(get_option('map_type')) ? get_option('map_type') : "world",
+            'map_color' => !empty(get_option('map_color')) ? get_option('map_color') : "#b9d7b8",
+            'map_background_color' => !empty(get_option('map_background_color')) ? get_option('map_background_color') : "#a3cdff",
+            'map_border_color' => !empty(get_option('map_border_color')) ? get_option('map_border_color') : "#000000",
+            'map_zoom' => !empty(get_option('map_zoom')) ? get_option('map_zoom') : true,
+            'map_region_hover_color' => !empty(get_option('map_region_hover_color')) ? get_option('map_region_hover_color') : "#779baa",
+            'map_labels' => !empty(get_option('map_labels')) ? get_option('map_labels') : true,
+            'map_tooltip' => !empty(get_option('map_tooltip')) ? get_option('map_tooltip') : true,
+            'map_border_width' => !empty(get_option('map_border_width')) ? get_option('map_border_width') : 1,
+            'map_border_opacity' => !empty(get_option('map_border_opacity')) ? get_option('map_border_opacity') : 0.50,
+            'map_selected_color' => !empty(get_option('map_selected_color')) ? get_option('map_selected_color') : "#8e8770",
+            'map_multiselect' => !empty(get_option('map_multiselect')) ? get_option('map_multiselect') : true,
         ));
-        wp_enqueue_script('map-frontend-handler', plugins_url('js/interactive-map.js', __DIR__), array(), '1.0.0', true);
+        wp_enqueue_script('map-frontend-handler', plugins_url('/assets/js/interactive-map.js', __DIR__), array(), '2.0.0', true);
     }
 
-    public function wp_interactive_map_settings() {
+    /**
+     * function to register map settings
+     */
+    public function wpInteractiveMapSettings()
+    {
 
         register_setting('interactive-map-settings-group', 'map_multiselect');
         register_setting('interactive-map-settings-group', 'map_selected_color');
@@ -90,10 +101,16 @@ class Interactive_Map {
         register_setting('interactive-map-settings-group', 'map_tooltip');
     }
 
-    public function interactive_map_func($atts) {
-        return '<div id=vmap style="width: ' . get_option('map_width') . 'px; height: ' . get_option('map_height') . 'px;"></div>';
-    }
+    /**
+     * Map Shortcode
+     * @param type $atts
+     * @return type
+     */
+    public function interactiveMapShortcode($atts)
+    {
 
+        return '<div id=vmap></div>';
+    }
 }
 
 ?>
