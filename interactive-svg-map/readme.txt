@@ -1,9 +1,10 @@
 === Interactive SVG Map ===
 Contributors: pawaryogesh1989, clarionwpdeveloper
 Tags: wordpress map, interactive svg map, svg map, wordpress svg map, svg map wordpress, vector map, wordpress vector map, world map, svg world map, vector world map, Asia map, europe map, germany map, africa map, australia map, argentina map, algeria map, brazil map, canada map, france map, greece map, iran map, iraq map, north america map, south america map, russia map, tunisia map, turkey map.
-Requires at least: 4.6
-Tested up to: 5.2.4
+Requires at least: 5.0 or higher
+Tested up to: 5.6
 Stable tag: 5.0
+PHP Version: 5.6 or higher
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,6 +58,9 @@ This plugin displays Map in SVG format. To use this map just insert [interactive
 6. screenshot-6 - Country Map (Australia).
 
 == Changelog ==
+
+= 3.0.0 =
+* Compatibility changes to make it work with latest WordPress version.
 
 = 2.0.0 =
 * Made Map responsive
